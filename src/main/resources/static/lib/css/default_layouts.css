@@ -6,13 +6,52 @@
     font-weight: 300;
     font-style: normal;
 }
-.nav-bar{
-    padding: 20px;
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header{
+}
+.nav_div{
+    display: flex;
+    justify-content: space-between;
+
 }
 .logo_img{
-    width: 16%;
+    padding: 30px;
+    width: 300px;
     height: auto;
 }
+.navbar{
+
+    align-items: baseline;
+    padding: 35px 100px;
+    font-size: 30px;
+}
+.navbar_list {
+    list-style: none;
+    display: flex;
+    margin: 0px;
+    padding-left: 0px;
+}
+.navbar_list li {
+    padding: 8px 30px;
+}
+
+.navbar_list li:after {
+    display: block;
+    content: '';
+    border-bottom: solid 3px coral;
+    transform: scaleX(0);
+    transition: transform 150ms ease-in-out;
+}
+
+.navbar_list li:hover:after {
+    transform: scaleX(1);
+}
+
+
 
 
 

@@ -1,11 +1,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
-    <div th:fragment="header">
-        <header>
-            <div>
-                <div class="nav-bar">
+    <header th:fragment="header">
+            <div class="nav_div">
+                <a href="/">
                     <img class="logo_img" src="upload/de-Identification/img/logo.png" alt="">
-                </div>
+                </a>
+                <nav class="navbar">
+                    <ul class="navbar_list" id="fromInsideOut">
+                        <li><a href="/intro">소개</a></li>
+                        <li><a href="#">서비스</a></li>
+                        <li><a href="#">Docs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">로그인</a></li>
+                    </ul>
+                </nav>
             </div>
         </header>
-    </div>
+    </header>
 </html>
