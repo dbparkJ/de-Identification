@@ -1,4 +1,4 @@
-package com.example.deidentification.headerController;
+package com.example.deidentification.headerController.fragmentController;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ServicePageController {
     @GetMapping("/servicePage")
     public String servicePage() {
-        return "pages/servicePage";
+        return "pages/serviceMainPage";
     }
 }
 
