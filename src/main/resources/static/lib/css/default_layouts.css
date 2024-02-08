@@ -11,7 +11,7 @@ body {
 
 .container {
     display: flex;
-    flex-grow: 1;
+    flex-grow: 2;
 }
 .side-footer {
     position: fixed;
@@ -27,7 +27,7 @@ body {
     width: 200px;
     height: 100%;
     min-height: 100%;
-    background: lightgrey;
+    background: #eeeaea;
 }
 .side-content {
     min-width: 1080px;
@@ -40,16 +40,69 @@ a {
 }
 
 .nav_div{
-    background: #f7f7f7;
     display: flex;
     justify-content: space-between;
 
 }
 .logo_img{
-    padding: 30px;
+    padding: 20px;
     width: 200px;
     height: auto;
 }
+
+.main-img-container {
+    position: relative;
+    width: 100%;
+}
+
+.main-img-container img {
+    width: 100%;
+    height: 65%;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 65%;
+    background-color: rgba(0, 0, 0, 0.55); /* 검정색 배경에 10%의 투명도 적용 */
+    z-index: 1; /* 이미지 위에 위치하도록 설정 */
+}
+
+.text-overlay {
+    position: absolute;
+    top: 25%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    color: white;
+}
+
+.header-1 {
+    font-size: 23px;
+    padding-bottom: 5px;
+    color: #c6e0ee;
+}
+
+.header-2 {
+    font-size: 45px;
+    color: #ffffff;
+    padding-bottom: 15px;
+}
+
+.text-1 {
+    white-space: pre-line;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.text-2 {
+    white-space: pre-line;
+    font-size: 20px;
+    color: #ffffff;
+}
+
 .navbar{
     align-items: baseline;
     padding: 30px 80px;
