@@ -1,9 +1,12 @@
 package com.example.deidentification.headerController.serviceController;
 
 import com.example.deidentification.service.FileService;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.SftpException;
 import io.tus.java.client.ProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,8 +26,8 @@ public class DeIdentificationController {
     }
 
     @GetMapping("/deIdentification")
-    public String deIdentification() {
-        fileService.FileList();
+    public String deIdentification(Model model) throws JSchException, SftpException {
+        fileService.fileThumbnail(model);
         return "/pages/deIdentification";
     }
     @PostMapping("/uploadFile")
@@ -43,7 +46,6 @@ public class DeIdentificationController {
 
         return "/pages/deIdentification";
     }
-
 
 }
 

@@ -2,12 +2,14 @@ package com.example.deidentification.service;
 
 import com.example.deidentification.entity.FileEntity;
 import com.example.deidentification.repository.FileRepository;
+import com.example.deidentification.utils.SFTPUtil;
 import com.jcraft.jsch.*;
 import io.tus.java.client.*;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,8 +30,11 @@ public class FileService {
 
     private final FileRepository fileRepository;
 
+    private final SFTPUtil sftpUtil;
+
     @Value("${tus.filePath}")
     private URL tusURL;
+
     @Value("${nas.host}")
     private String host;
     @Value("${nas.port}")
@@ -38,9 +43,6 @@ public class FileService {
     private String id;
     @Value("${nas.userPw}")
     private String pw;
-
-
-
 
     @Getter
     private String filetype;
@@ -56,8 +58,9 @@ public class FileService {
     }
 
     @Autowired
-    public FileService(FileRepository fileRepository) {
+    public FileService(FileRepository fileRepository, SFTPUtil sftpUtil) {
         this.fileRepository = fileRepository;
+        this.sftpUtil = sftpUtil;
     }
 
 
@@ -112,33 +115,42 @@ public class FileService {
         executor.makeAttempts();
     }
 
-    public void FileList() {
-        try {
-            JSch jSch = new JSch();
-            Session session = jSch.getSession(id, host, port);
-            session.setConfig("StrictHostKeyChecking", "no");
-            session.setPassword(pw);
-            session.connect();
+//    public void FileList() {
+//        try {
+//            JSch jSch = new JSch();
+//            Session session = jSch.getSession(id, host, port);
+//            session.setConfig("StrictHostKeyChecking", "no");
+//            session.setPassword(pw);
+//            session.connect();
+//
+//            Channel channel = session.openChannel("sftp");
+//            channel.connect();
+//
+//            if (channel != null) {
+//                ChannelSftp sftpChannel = (ChannelSftp) channel;
+//                if (sftpChannel.isConnected()) {
+//                    sftpChannel.cd("/home/node/app/files");
+//                    Vector<ChannelSftp.LsEntry> filelist = sftpChannel.ls("*.json");
+//                    for (ChannelSftp.LsEntry entry : filelist) {
+//                        System.out.println(entry.getFilename());
+//                    }
+//                }
+//                sftpChannel.exit();
+//                session.disconnect();
+//            }
+//
+//        } catch (JSchException | SftpException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//    }
 
-            Channel channel = session.openChannel("sftp");
-            channel.connect();
-
-            if (channel != null) {
-                ChannelSftp sftpChannel = (ChannelSftp) channel;
-                if (sftpChannel.isConnected()) {
-                    sftpChannel.cd("/home/node/app/files");
-                    Vector<ChannelSftp.LsEntry> filelist = sftpChannel.ls("*.json");
-                    for (ChannelSftp.LsEntry entry : filelist) {
-                        System.out.println(entry.getFilename());
-                    }
-                }
-                sftpChannel.exit();
-                session.disconnect();
-            }
-
-        } catch (JSchException | SftpException e) {
-            throw new RuntimeException(e);
-        }
-
+    /**
+     * 서버에 있는 파일의 리스트와 썸네일을 가져오는 코드
+     * */
+    public void fileThumbnail(Model model) throws JSchException, SftpException {
+        sftpUtil.init(host, id, pw, port);
+        sftpUtil.fileList(model);
+        sftpUtil.disconnection();
     }
 }

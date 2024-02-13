@@ -3,7 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
       layout:decorate="~{layouts/dashBoard}">
 <head>
-    <link rel="stylesheet" href="/lib/css/">
+    <link rel="stylesheet" href="/lib/css/upload_2.css">
 </head>
 <div layout:fragment="dashBoard">
     <h1>Upload File Name</h1>
@@ -18,14 +18,14 @@
     </div>
     <div>
         <div class="container">
-            <div th:each="fileInfo : ${fileInfoList}" class="card">
-                <div class="card-image loading">
-                    <img th:src="@{|/upload/web_images/${fileInfo.name}}">
-                </div>
+            <div th:each="fileInfo : ${fileList}" class="card">
+<!--                <div class="card-image loading">-->
+<!--                    <img th:src="@{|/upload/web_images/${fileInfo.name}}">-->
+<!--                </div>-->
                 <a href="#" class="card-header loading">
-                    <p th:text="${fileInfo.name}" class="card-info loading"></p>
+                    <p th:text="${fileInfo}" class="card-info loading"></p>
                 </a>
-                <p th:text="${fileInfo.name}" class="card-info loading"></p>
+                <p th:text="${fileInfo}" class="card-info loading"></p>
             </div>
         </div>
     </div>
