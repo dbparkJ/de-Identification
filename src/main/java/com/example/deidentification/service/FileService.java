@@ -109,47 +109,18 @@ public class FileService {
                 while(uploader.uploadChunk() > -1){};
                 // Allow the HTTP connection to be closed and cleaned up
                 uploader.finish();
-                redirectAttributes.addFlashAttribute("upload_message", "File name uploaded successfully : " + multipartFile.getName());
+                redirectAttributes.addFlashAttribute("upload_message", "File uploaded successfully : " + multipartFile.getOriginalFilename());
             }
         };
         executor.makeAttempts();
     }
-
-//    public void FileList() {
-//        try {
-//            JSch jSch = new JSch();
-//            Session session = jSch.getSession(id, host, port);
-//            session.setConfig("StrictHostKeyChecking", "no");
-//            session.setPassword(pw);
-//            session.connect();
-//
-//            Channel channel = session.openChannel("sftp");
-//            channel.connect();
-//
-//            if (channel != null) {
-//                ChannelSftp sftpChannel = (ChannelSftp) channel;
-//                if (sftpChannel.isConnected()) {
-//                    sftpChannel.cd("/home/node/app/files");
-//                    Vector<ChannelSftp.LsEntry> filelist = sftpChannel.ls("*.json");
-//                    for (ChannelSftp.LsEntry entry : filelist) {
-//                        System.out.println(entry.getFilename());
-//                    }
-//                }
-//                sftpChannel.exit();
-//                session.disconnect();
-//            }
-//
-//        } catch (JSchException | SftpException e) {
-//            throw new RuntimeException(e);
-//        }
-//
-//    }
 
     /**
      * 서버에 있는 파일의 리스트와 썸네일을 가져오는 코드
      * */
     public void fileThumbnail(Model model) throws JSchException, SftpException {
         sftpUtil.init(host, id, pw, port);
+        sftpUtil.changeFileName();
         sftpUtil.fileList(model);
         sftpUtil.disconnection();
     }

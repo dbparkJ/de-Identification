@@ -3,35 +3,49 @@
       xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
       layout:decorate="~{layouts/dashBoard}">
 <head>
-    <link rel="stylesheet" href="/lib/css/upload_2.css">
+    <link rel="stylesheet" href="/lib/css/fileUpload.css">
 </head>
 <div layout:fragment="dashBoard">
-    <h1>Upload File Name</h1>
-    <div class="upload-container">
-        <form action="/uploadFile" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" multiple/>
-            <input type="submit" value="업로드" />
-        </form>
-        <div>
-            <p th:if="${upload_message}" th:text="${upload_message}"></p>
-        </div>
-    </div>
-    <div>
-        <div class="container">
-            <div th:each="fileInfo : ${fileList}" class="card">
-<!--                <div class="card-image loading">-->
-<!--                    <img th:src="@{|/upload/web_images/${fileInfo.name}}">-->
-<!--                </div>-->
-                <a href="#" class="card-header loading">
-                    <p th:text="${fileInfo}" class="card-info loading"></p>
-                </a>
-                <p th:text="${fileInfo}" class="card-info loading"></p>
+    <h1 class="upload-title">파일 업로드</h1>
+    <form action="/uploadFile" method="post" enctype="multipart/form-data">
+        <div class="contents">
+            <div class="upload-box">
+                <div class="drag-file" id="drop-file">
+                    <label class="file-label" for="chooseFile">
+                        <div>
+                            <img src="https://img.icons8.com/pastel-glyph/2x/image-file.png" alt="파일타입 이미지" class="image">
+                        </div>
+                        <span class="message">Choose Files</span>
+                    </label>
+                    <input type="file" class="file" id="chooseFile" name="file"  style="display: none;" multiple onchange="dropFile.handleFiles(this.files)"/>
+                </div>
+            </div>
+    <!--        여기서부터 리스트 추가-->
+            <div id="files" class="files">
+                <p class="upload-state" th:if="${upload_message}" th:text="${upload_message}">
+                <div>
+                    <label class="file-uploadButton" for="uploadButton">
+                        <span>업로드</span>
+                    </label>
+                    <input type="submit" id="uploadButton">
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 
+        <div>
+            <div class="fileList-container">
+                <div th:each="fileInfo : ${fileList}" class="card">
+                    <div class="card-image loading">
+                        <img th:src="@{|upload/de-Identification/server/files/${fileInfo}}" class="file-img">
+                    </div>
+                    <a href="#" class="card-header loading">
+                        <p th:text="${fileInfo}" class="card-info loading"></p>
+                    </a>
+                </div>
+            </div>
+        </div>
 </div>
 
-
-
 </html>
+

@@ -16,12 +16,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 
 @Controller
-public class DeIdentificationController {
+public class UploadFileViewController {
 
     private final FileService fileService;
 
     @Autowired
-    public DeIdentificationController(FileService fileService) {
+    public UploadFileViewController(FileService fileService) {
         this.fileService = fileService;
     }
 
@@ -44,7 +44,7 @@ public class DeIdentificationController {
         // DB 로직
         fileService.saveDb(multipartFile);
 
-        return "/pages/deIdentification";
+        return "redirect:deIdentification";
     }
 
 }

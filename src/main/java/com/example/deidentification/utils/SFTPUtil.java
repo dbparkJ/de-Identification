@@ -1,6 +1,8 @@
 package com.example.deidentification.utils;
 
 import com.jcraft.jsch.*;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.Model;
 
@@ -14,6 +16,10 @@ public class SFTPUtil {
     private Session session = null;
     private Channel channel = null;
     private ChannelSftp channelSftp = null;
+
+    @Value("${json.filePath}")
+    private String jsonFilePath;
+
     public void init(String host, String username, String password, int port) throws JSchException {
         JSch jSch = new JSch();
         try {
@@ -80,11 +86,34 @@ public class SFTPUtil {
             throw new RuntimeException(e);
         }
     }
-    
+
+    public void changeFileName() {
+        try {
+            channelSftp.cd("/home/node/app/files");
+            Vector<ChannelSftp.LsEntry> fileList = channelSftp.ls("*.json");
+            if (fileList != null) {
+                for (ChannelSftp.LsEntry entry : fileList) {
+//                System.out.println(entry.getFilename());
+                    String jsonFileName = jsonFilePath + entry.getFilename();
+                    JSONObject jsonObject = BasicUtils.fetchJsonFromUrl(jsonFileName);
+                    String oldName = jsonObject.getString("id");
+                    String newName = jsonObject.getJSONObject("metadata").getString("filename");
+                    System.out.println(newName);
+                    channelSftp.rename(oldName, newName);
+                    channelSftp.rm(entry.getFilename());
+                }
+            }
+        } catch (SftpException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     /**
      * session disconnect
      * */
     public void disconnection() {
+        channelSftp.exit();
         channelSftp.quit();
         session.disconnect();
     }
