@@ -79,7 +79,7 @@ public class FileService {
     }
     public FileEntity saveDb(MultipartFile multipartFile) {
         FileEntity file = new FileEntity();
-        file.setFileName(multipartFile.getName());
+        file.setFileName(multipartFile.getOriginalFilename());
         file.setUploadTime(LocalDate.now());
         file.setFilePath(String.valueOf(tusURL));
         return fileRepository.save(file);

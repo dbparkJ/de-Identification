@@ -1,0 +1,141 @@
+h1 {
+    margin-left: 100px;
+    margin-top: 30px;
+}
+.view-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    margin-top: 50px;
+}
+
+.fileList-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 한 줄에 4개의 열을 생성합니다. */
+    gap: 30px; /* 열 간의 여백을 설정합니다. */
+    row-gap: 30px;
+}
+
+.card{
+    max-width: 230px;
+    background: #eeeeee;
+    box-shadow: rgba(108, 108, 108, 0.35) 0px 5px 15px;
+    padding: 1.3rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.card .card-image{
+
+    margin-bottom: 1rem;
+}
+
+.card-header{
+    color: #575757;
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.card-header .card-info{
+    color: #333333;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: center;
+}
+
+.card .card-image img{
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 0.25rem;
+}
+
+.loading{
+    position: relative;
+}
+
+.loading::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 0.25rem;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background: #bebebe;
+    background-size: 200%;
+    animation: loading 0.5s infinite reverse;
+}
+
+@keyframes loading {
+    0%{
+        background-position: -100% 0;
+    }
+    100%{
+        background-position: 100% 0;
+    }
+}
+
+.hidden-checkbox {
+    display: none;
+}
+
+.card-selected {
+    position: relative;
+}
+
+.card-selected::after {
+    content: "✔";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #4CAF50; /* 밝은 녹색 */
+    font-size: 80px;
+    background: rgba(197, 193, 193, 0.5); /* 불투명한 흰색 */
+    z-index: 1;
+}
+.button-area {
+    margin-bottom: 80px;
+    margin-right: 100px;
+}
+#sendButton {
+    float: right;
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 1.25rem;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#sendButton:hover {
+    background-color: #005f7f;
+}
+
+#sendButton:disabled {
+    background-color: #aaaaaa;
+    color: #666666;
+    cursor: not-allowed;
+}
+
+
+
+

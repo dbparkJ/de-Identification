@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/tymeleaf/layout"
+      layout:decorate="~{layouts/dashBoard}">
+<head>
+    <link rel="stylesheet" href="/lib/css/fileView.css">
+</head>
+<div layout:fragment="dashBoard">
+    <h1 class="upload-title">업로드 파일 목록</h1>
+    <div class="button-area">
+        <button id="sendButton" onclick="sendData()">비식별화</button>
+    </div>
+    <div class="view-body">
+        <div class="fileList-container">
+            <div th:each="fileInfo : ${fileList}" class="card" onclick="toggleCardSelection(this)">
+                <div class="card-image loading">
+                    <img th:src="@{|upload/de-Identification/server/files/${fileInfo}}" class="file-img">
+                </div>
+                <a href="#" class="card-header loading">
+                    <p th:text="${fileInfo}" class="card-info loading"></p>
+                </a>
+                <input type="checkbox" th:value="${fileInfo}" name="fileCheckbox" class="hidden-checkbox">
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
+

@@ -93,12 +93,10 @@ public class SFTPUtil {
             Vector<ChannelSftp.LsEntry> fileList = channelSftp.ls("*.json");
             if (fileList != null) {
                 for (ChannelSftp.LsEntry entry : fileList) {
-//                System.out.println(entry.getFilename());
                     String jsonFileName = jsonFilePath + entry.getFilename();
                     JSONObject jsonObject = BasicUtils.fetchJsonFromUrl(jsonFileName);
                     String oldName = jsonObject.getString("id");
                     String newName = jsonObject.getJSONObject("metadata").getString("filename");
-                    System.out.println(newName);
                     channelSftp.rename(oldName, newName);
                     channelSftp.rm(entry.getFilename());
                 }
