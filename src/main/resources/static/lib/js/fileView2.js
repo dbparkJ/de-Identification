@@ -67,7 +67,7 @@ function sendData() {
 
     // AJAX 요청을 사용하여 선택된 값을 서버로 전송
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", "YOUR_BACKEND_ENDPOINT", true); // YOUR_BACKEND_ENDPOINT를 백엔드 처리 URL로 변경
+    xhr.open("POST", "http://111.111.111.26:5000/test", true); // YOUR_BACKEND_ENDPOINT를 백엔드 처리 URL로 변경
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
